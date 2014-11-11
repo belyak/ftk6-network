@@ -37,7 +37,6 @@ public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
     @Basic(optional = false)
@@ -61,6 +60,12 @@ public class Person implements Serializable {
 
     public Person(Integer id, String firstName, String patronymicName, String lastName) {
         this.id = id;
+        this.firstName = firstName;
+        this.patronymicName = patronymicName;
+        this.lastName = lastName;
+    }
+
+    public Person(String firstName, String patronymicName, String lastName) {
         this.firstName = firstName;
         this.patronymicName = patronymicName;
         this.lastName = lastName;

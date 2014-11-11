@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package info.aservices.ftk6.dc;
 
 import info.aservices.ftk6.dc.entities.AccountMovement;
@@ -15,8 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateless()
-public class CommonActionsSession implements FInancialOperationsRemote, 
-        FinancialOperationsLocal, AdministrativeOperationsRemote {
+public class CommonActionsSession implements FinancialOperationsRemote,
+        FinancialOperationsLocal {
     
     @PersistenceContext(unitName = "ESystem-ejbPU")
     private EntityManager em;
@@ -33,6 +28,7 @@ public class CommonActionsSession implements FInancialOperationsRemote,
         em.persist((Object)transaction);
         
         BigDecimal currentBalance = account.getBalance();
+        //noinspection ResultOfMethodCallIgnored
         currentBalance.add(amount);
         account.setBalance(amount);
         
@@ -54,31 +50,5 @@ public class CommonActionsSession implements FInancialOperationsRemote,
         
         remitter.DecreaseBalance(amount);
         beneficiary.IncreaseBalance(amount);
-    }
-
-    @Override
-    public Integer createPerson(String firstName, String patronymicName, 
-            String lastName) {
-        Person p = new Person();
-        p.setFirstName(firstName);
-        p.setPatronymicName(patronymicName);
-        p.setLastName(lastName);
-        em.persist(p);
-        
-        return p.getId();
-    }
-
-    @Override
-    public Integer createAccount(Person person, BigDecimal initialAmount) {
-        Account account = new Account();
-        account.setPerson(person);
-        account.setBalance(initialAmount);
-        em.persist(account);
-        return account.getId();
-    }
-
-    @Override
-    public Integer createAccount(Person person) {
-        return createAccount(person, BigDecimal.ZERO);
     }
 }

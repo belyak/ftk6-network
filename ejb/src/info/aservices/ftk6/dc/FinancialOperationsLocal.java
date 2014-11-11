@@ -12,6 +12,6 @@ import javax.ejb.Local;
  * @author andy
  */
 @Local
-public interface FinancialOperationsLocal extends FinancialsOperations {
+public interface FinancialOperationsLocal extends FinancialOperations {
     
 }

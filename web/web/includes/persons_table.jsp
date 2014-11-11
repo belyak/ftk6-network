@@ -1,11 +1,9 @@
-<%@page import="java.lang.Class"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@page import="info.aservices.ftk6.dc.webhelpers.RemoteInterfaceFactory"%>
 <%@page import="info.aservices.ftk6.dc.webhelpers.EntitiesListerRemote"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="info.aservices.ftk6.dc.entities.Person"%>
 <%@page import="java.util.List"%>
 <%@page import="info.aservices.ftk6.dc.PopulateDumpRemote"%>
-<%@page import="javax.naming.InitialContext"%>
 <div class="row">
     <div class="col-xs-10">
         <div class="panel panel-default panel-primary">
@@ -19,10 +17,10 @@
             <table class="table table-striped">
                 <%  
                     try {
-                        PopulateDumpRemote ejbRef = RemoteInterfaceFactory.<PopulateDumpRemote>get(PopulateDumpRemote.class);
+                        PopulateDumpRemote ejbRef = RemoteInterfaceFactory.get(PopulateDumpRemote.class);
                         ejbRef.populate();
                         
-                        EntitiesListerRemote listerEjbRef = RemoteInterfaceFactory.<EntitiesListerRemote>get(EntitiesListerRemote.class);
+                        EntitiesListerRemote listerEjbRef = RemoteInterfaceFactory.get(EntitiesListerRemote.class);
                         List<Person> persons;
                         
                         String doSearch = request.getParameter("doSearch");

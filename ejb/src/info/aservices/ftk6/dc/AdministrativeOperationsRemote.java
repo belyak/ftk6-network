@@ -16,6 +16,7 @@ import javax.ejb.Remote;
 @Remote
 public interface AdministrativeOperationsRemote {
     public Integer createPerson(String firstName, String patronymicName, String lastName);
-    public Integer createAccount(Person person, BigDecimal initialAmount);
+    public Integer createPersonAndAccount(String firstName, String patronymicName, String lastName, BigDecimal initialBalance);
+    public Integer createAccount(Person person, BigDecimal initialBalance);
     public Integer createAccount(Person person);
 }

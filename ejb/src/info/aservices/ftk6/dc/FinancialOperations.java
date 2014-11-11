@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  * 
  * Операции над счетами: пополнение счета, перевод между счетами.
  */
-public interface FinancialsOperations {
+public interface FinancialOperations {
 
     void Recharge(Account account, BigDecimal amount);
 

@@ -8,5 +8,5 @@ package info.aservices.ftk6.dc;
 import javax.ejb.Remote;
 
 @Remote
-public interface FInancialOperationsRemote extends FinancialsOperations {
+public interface FinancialOperationsRemote extends FinancialOperations {
 }
