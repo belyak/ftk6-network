@@ -19,7 +19,7 @@ import javax.ejb.Remote;
 @Remote
 public interface ReportsRemote {
     public List<AccountMovement> getAccountMovements(Account acccount);
-    public Person getPerson(Integer person_id);
+    public PersonInfo getPerson(Integer person_id);
     public AccountInfo getAccountHistoryInfo(Integer account_id, Date from, Date till);
     public AccountInfo getAccountHistoryInfo(Integer account_id, int lastOperationsCnt);
 }

@@ -30,7 +30,8 @@ public class AdministrativeOperationsSession implements AdministrativeOperations
     public Integer createPersonAndAccount(String firstName, String patronymicName, String lastName, BigDecimal initialBalance) {
         Person p = new Person(firstName, patronymicName, lastName);
         em.persist(p);
-        createAccount(p, initialBalance);
+        Integer account_id = createAccount(p, initialBalance);
+        System.out.print(account_id);
         return p.getId();
     }
 
@@ -39,6 +40,7 @@ public class AdministrativeOperationsSession implements AdministrativeOperations
         Account account = new Account();
         account.setPerson(person);
         account.setBalance(initialBalance);
+        person.getAccountCollection().add(account);
         em.persist(account);
         return account.getId();
     }

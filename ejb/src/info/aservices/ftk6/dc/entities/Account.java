@@ -7,9 +7,7 @@ package info.aservices.ftk6.dc.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -38,7 +36,6 @@ public class Account implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
     @Basic(optional = false)

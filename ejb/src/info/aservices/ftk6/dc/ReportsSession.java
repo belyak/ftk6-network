@@ -6,6 +6,8 @@
 package info.aservices.ftk6.dc;
 
 import info.aservices.ftk6.dc.entities.AccountMovement;
+
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -28,11 +30,12 @@ public class ReportsSession implements ReportsRemote {
     }
 
     @Override
-    public Person getPerson(Integer person_id) {
+    public PersonInfo getPerson(Integer person_id) {
+        PersonInfo pi =  new PersonInfo();
         Person person = em.find(Person.class, person_id);
-        int s = person.getAccountCollection().size();
-        System.out.println("size: " + s);
-        return person;
+        pi.person = person;
+        pi.accounts = new ArrayList<>(person.getAccountCollection());
+        return pi;
     }
 
     @Override

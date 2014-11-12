@@ -31,7 +31,7 @@ public class PopulateDumpSession implements PopulateDumpRemote {
      */
     @Override
     public void populate() {
-        int personsCnt = 100;
+        int personsCnt = 1;
         long minimalBalance = 0;
         long maximalBalance = 4000;
         int minAccountsPerPerson = 1;
