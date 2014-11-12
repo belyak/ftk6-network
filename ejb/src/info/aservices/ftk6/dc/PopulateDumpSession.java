@@ -54,9 +54,9 @@ public class PopulateDumpSession implements PopulateDumpRemote {
                 person.getAccountCollection().add(account);
                 account.setPerson(person);
                 account.setBalance(BigDecimal.ZERO);
+                em.persist(account);
                 BigDecimal newBalance = new BigDecimal(cents).movePointLeft(2);
                 financialOperations.Recharge(account, newBalance);
-                em.persist(account);
             }
             
             for (int t = 0; t < transfersCnt; t++) {

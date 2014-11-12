@@ -17,6 +17,6 @@ public interface FinancialOperations {
 
     void Recharge(Account account, BigDecimal amount);
 
-    void Transfer(Account remitter, Account beneficiary, BigDecimal amount, String description);
+    Integer Transfer(Account remitter, Account beneficiary, BigDecimal amount, String description);
     
 }

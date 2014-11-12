@@ -39,17 +39,38 @@
                                 <%=person.getLastName().toUpperCase() + ' ' + person.getFirstName()  + ' ' + person.getPatronymicName() + ' ' %>
                             </h2>
                         </div>
-                            <ul class="list-group">
+                        <ul class="list-group">
                             <% for (Account account: accounts) { %>
-                            <li class="list-group-item">#<%=account.getId() %><br>( $$<%=account.getBalance()%>)</li>
-                            <ul>
-                            <%
-                                AccountInfo ai = ejbRef.getAccountHistoryInfo(account.getId(), 10);
-                                for (AccountMovement am: ai.operationsHistory) {
-                                    %><li><%=am.getTs()%>&nbsp;<%=am.getAmount()%></li><%
+                            <li class="list-group-item">
+                                <h4>Счет # <%=account.getId() %> (текущий баланс: $<%=account.getBalance()%>)</h4>
+                            </li>
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Дата операции</th>
+                                    <th>Отправитель</th>
+                                    <th>Получатель</th>
+                                    <th>Сумма</th>
+                                    <th>Назначение</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%
+                                    AccountInfo ai = ejbRef.getAccountHistoryInfo(account.getId(), 10);
+                                    for (AccountMovement am: ai.operationsHistory) {
+                                %>
+                                    <tr>
+                                        <td><%=am.getTs()%></td>
+                                        <td><%=(am.getRemitter() != null) ? am.getRemitter().getPerson().getFullName() : ""%></td>
+                                        <td><%=am.getBeneficiary().getPerson().getFullName()%></td>
+                                        <td>$<%=am.getAmount()%></td>
+                                        <td><%=am.getDescription()%></td>
+                                    </tr>
+                                <%
                                 }
                             %>
-                            </ul>
+                                </tbody>
+                            </table>
                             <% } %>
                         </ul>
                     </div>

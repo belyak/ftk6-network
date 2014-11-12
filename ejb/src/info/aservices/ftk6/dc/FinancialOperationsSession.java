@@ -34,7 +34,7 @@ public class FinancialOperationsSession implements FinancialOperationsRemote,
     }
 
     @Override
-    public void Transfer(Account remitter, Account beneficiary, 
+    public Integer Transfer(Account remitter, Account beneficiary,
             BigDecimal amount, String description) {
         Date operationTs = new Date();
         AccountMovement transaction = new AccountMovement(false, operationTs);
@@ -51,5 +51,7 @@ public class FinancialOperationsSession implements FinancialOperationsRemote,
 
         em.merge(remitter);
         em.merge(beneficiary);
+
+        return transaction.getId();
     }
 }

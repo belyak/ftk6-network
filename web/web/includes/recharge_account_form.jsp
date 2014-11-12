@@ -34,8 +34,8 @@
 </div>
 
 <%
-  String doCreatePerson = request.getParameter("doRechargeAccount");
-  if (doCreatePerson!= null && doCreatePerson.equals("true")) {
+  String doRechargeAccount = request.getParameter("doRechargeAccount");
+  if (doRechargeAccount != null && doRechargeAccount.equals("true")) {
 
     Integer accountId = Integer.parseInt(request.getParameter("accountNumber"));
     BigDecimal amountToRecharge;

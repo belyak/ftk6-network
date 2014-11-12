@@ -111,7 +111,17 @@ public class Person implements Serializable {
         if (!withInitials) {
             return lastName + ' ' + firstName + ' ' + patronymicName;
         } else {
-            return lastName + ' ' + firstName.substring(0, 1) + '.' + patronymicName.substring(0, 1);
+            StringBuilder sb = new StringBuilder(lastName);
+            if (!firstName.isEmpty()) {
+                sb.append(" ");
+                sb.append(firstName.substring(0, 1));
+                sb.append(".");
+            }
+            if (!patronymicName.isEmpty()) {
+                sb.append(patronymicName.substring(0, 1));
+                sb.append(".");
+            }
+            return sb.toString();
         }
     }
     
