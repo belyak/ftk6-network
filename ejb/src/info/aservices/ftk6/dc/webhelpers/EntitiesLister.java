@@ -2,13 +2,13 @@ package info.aservices.ftk6.dc.webhelpers;
 
 import info.aservices.ftk6.dc.entities.Person;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 interface Expression {
     public String getExpression(String entityAlias);
@@ -91,7 +91,7 @@ public class EntitiesLister implements EntitiesListerRemote {
     }
 
     @Override
-    public <T1> int getPagesCount(Class entityClass, int itemsPerPage) {
+    public int getPagesCount(Class entityClass, int itemsPerPage) {
         String tableName = entityClass.getName();
         Long count = (Long)em.createQuery("SELECT COUNT(alias) FROM " + tableName + " alias").getSingleResult();
         int pagesCount = (int) (count / itemsPerPage);
@@ -100,23 +100,16 @@ public class EntitiesLister implements EntitiesListerRemote {
     }
 
     @Override
-    public <T1> List<T1> getList(Class entityClass, int page, int itemsPerPage) {
+    public <T1> List<T1> getList(Class<T1> entityClass, int page, int itemsPerPage) {
         String tableName = entityClass.getName();
 
         MyQueryBuilder mQB = new MyQueryBuilder(tableName);
         String query = mQB.getQuery();
 
-        List<T1> result = new ArrayList<>();
-        Query createdQuery = em.createQuery(query);
+        final TypedQuery<T1> createdQuery = em.createQuery(query, entityClass);
 
         createdQuery.setFirstResult((page-1) * itemsPerPage).setMaxResults(itemsPerPage);
-        List preResult = createdQuery.getResultList();
-
-        for(Object o: preResult) {
-            //noinspection unchecked
-            result.add((T1)o);
-        }
-        return result;
+        return createdQuery.getResultList();
     }
     
     @Override
@@ -140,13 +133,13 @@ public class EntitiesLister implements EntitiesListerRemote {
         
         String query = mQB.getQuery();
 
-        Query createdQuery = em.createQuery(query);
+        final TypedQuery<Person> createdQuery = em.createQuery(query, Person.class);
         for (int i = 0; i < 3; i++) {
             if (!fieldValues[i].isEmpty()) {
                 createdQuery.setParameter(fieldNames[i], fieldValues[i]);
             }
         }
 
-        return new ArrayList<>(createdQuery.getResultList());
+        return createdQuery.getResultList();
     }
 }

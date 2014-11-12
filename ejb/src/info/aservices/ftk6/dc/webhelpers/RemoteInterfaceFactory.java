@@ -14,10 +14,7 @@ import javax.naming.NamingException;
  */
 public class RemoteInterfaceFactory {
     public static<Interface> Interface get(Class interfaceClass) throws NamingException {
-        //TODO: Избавится от дублирования параметра и аргумента
-        InitialContext ic = new InitialContext();
         String remoteName = interfaceClass.getCanonicalName();
-        Interface lookupResult = (Interface)ic.lookup(remoteName);
-        return lookupResult;
+        return InitialContext.doLookup(remoteName);
     }
 }
