@@ -29,7 +29,7 @@
                         <label for="ib">Initial balance:</label>
                         <input type="text" class="form-control" id="ib" name="initialBalance" placeholder="0">
                     </div>
-                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
                 </form>
 
             </div>
