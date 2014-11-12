@@ -6,6 +6,7 @@
     <link href="css/intro.css" rel="stylesheet">
   </layout:put>
   <layout:put block="content" type="REPLACE">
+    <jsp:include page="includes/populate_db.jsp" flush="true" />
     <jsp:include page="includes/intro.jsp" flush="true" />
   </layout:put>
 </layout:extends>

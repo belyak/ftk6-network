@@ -6,6 +6,9 @@ import javax.ejb.Remote;
 
 @Remote
 public interface PopulateDumpRemote {
-    void populate();
     List<Person> dumpPersons();
+
+    void populateIfEmpty();
+
+    void populate();
 }
