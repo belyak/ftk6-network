@@ -87,6 +87,35 @@ public class EntitiesLister implements EntitiesListerRemote {
         return result;
     }
 
+    @Override
+    public <T1> int getPagesCount(Class entityClass, int itemsPerPage) {
+        String tableName = entityClass.getName();
+        Long count = (Long)em.createQuery("SELECT COUNT(alias) FROM " + tableName + " alias").getSingleResult();
+        int pagesCount = (int) (count / itemsPerPage);
+        pagesCount += (count % itemsPerPage != 0) ? 1 : 0;
+        return pagesCount;
+    }
+
+    @Override
+    public <T1> List<T1> getList(Class entityClass, int page, int itemsPerPage) {
+        String tableName = entityClass.getName();
+
+        MyQueryBuilder mQB = new MyQueryBuilder(tableName);
+        String query = mQB.getQuery();
+
+        List<T1> result = new ArrayList<>();
+        Query createdQuery = em.createQuery(query);
+
+        createdQuery.setFirstResult((page-1) * itemsPerPage).setMaxResults(itemsPerPage);
+        List preResult = createdQuery.getResultList();
+
+        for(Object o: preResult) {
+            //noinspection unchecked
+            result.add((T1)o);
+        }
+        return result;
+    }
+
     private void setLikeParameterIfValueIsNotEmpty(Query createdQuery, String param, String value) {
         if (param.length() != 0) {
             createdQuery.setParameter(param, value + "%");

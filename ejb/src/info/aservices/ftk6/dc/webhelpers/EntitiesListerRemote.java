@@ -15,5 +15,7 @@ import javax.ejb.Remote;
 @Remote
 public interface EntitiesListerRemote {
     <T1> List<T1> getList(Class entityClass);
+    <T1> int getPagesCount(Class entityClass, int itemsPerPage);
+    <T1> List<T1> getList(Class entityClass, int page, int itemsPerPage);
     <T1> List<T1> getSearchList(Class entityClass, String firstName, String lastName, String patronymicName);
 }

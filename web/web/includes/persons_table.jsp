@@ -14,12 +14,17 @@
             <div class="panel-body">
             <p>Список фамилий и инициалов физических лиц.</p>
             </div>
-            <table class="table table-striped">
+
                 <%  
                     try {
                         EntitiesListerRemote listerEjbRef = RemoteInterfaceFactory.get(EntitiesListerRemote.class);
                         List<Person> persons;
-                        
+
+                        boolean paginate = false;
+                        int pageNumber = 0;
+                        int itemsPerPage = 20;
+                        int totalPages = 0;
+
                         String doSearch = request.getParameter("doSearch");
                         if (doSearch != null && doSearch.equals("true")) {
 
@@ -29,20 +34,39 @@
                             persons = listerEjbRef.getSearchList(Person.class, firstName, lastName, patromynicName);
                         }
                         else {
-                            persons = listerEjbRef.<Person>getList(Person.class);
+                            try {
+                                pageNumber = Integer.parseInt(request.getParameter("page"));
+                            } catch (NumberFormatException e) {
+                                pageNumber = 1;
+                            }
+                            persons = listerEjbRef.<Person>getList(Person.class, pageNumber, itemsPerPage);
+                            totalPages = listerEjbRef.<Person>getPagesCount(Person.class, itemsPerPage);
+                            paginate = true;
                         }
-                        
+
+                        %>
+                        <table class="table table-striped">
+                            <%
                         for (Person p: persons) {
-                            %><tr>
+                            %>
+                            <tr>
                                 <td><%=p.getFullName(true) %></td>
                                 <td><a href="/person.jsp?id=<%=p.getId()%>">view person details</a></td>
-                            </tr><%
+                            </tr>
+                            <%
                         }
+                        %>
+                        </table>
+                        <jsp:include page="pagination.jsp" flush="true">
+                            <jsp:param name="paginate" value="<%=paginate%>"/>
+                            <jsp:param name="totalPages" value="<%=totalPages%>"/>
+                            <jsp:param name="pageNumber" value="<%=pageNumber%>"/>
+                        </jsp:include>
+                        <%
                     } catch (Exception e) {
                         %>Got exception: <%=e%><%
                     }
                     %>
-            </table>
         </div>
     </div>
 </div>
