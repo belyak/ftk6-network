@@ -45,7 +45,7 @@ public class PopulateDumpSession implements PopulateDumpRemote {
             person.setFirstName("Name" + i);
             person.setPatronymicName("PatromynicName" + i);
             person.setLastName("LastName" + i);
-            em.persist((Object)person);
+            em.persist(person);
             
             long accountsCnt = Math.round(Math.random()*(maxAccountsPerPerson - minAccountsPerPerson));
             for (int j = 0; j < accountsCnt; j++) {
@@ -54,8 +54,8 @@ public class PopulateDumpSession implements PopulateDumpRemote {
                 person.getAccountCollection().add(account);
                 account.setPerson(person);
                 account.setBalance(BigDecimal.ZERO);
-                BigDecimal newBlanace = new BigDecimal(cents).movePointLeft(2);
-                financialOperations.Recharge(account, newBlanace);
+                BigDecimal newBalance = new BigDecimal(cents).movePointLeft(2);
+                financialOperations.Recharge(account, newBalance);
                 em.persist(account);
             }
             
@@ -67,7 +67,6 @@ public class PopulateDumpSession implements PopulateDumpRemote {
 
     @Override
     public List<Person> dumpPersons() {
-        List<Person> persons = em.createNamedQuery("Person.findAll").getResultList();
-        return persons;
+        return em.createNamedQuery("Person.findAll").getResultList();
     }    
 }

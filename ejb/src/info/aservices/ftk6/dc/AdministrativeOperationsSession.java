@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 
 @Stateless
-public class AdministrativeOperationsSession implements AdministrativeOperationsRemote {
+public class AdministrativeOperationsSession implements AdministrativeOperationsRemote, AdministrativeOperationsLocal {
 
     @PersistenceContext(unitName = "ESystem-ejbPU")
     private EntityManager em;
