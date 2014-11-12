@@ -42,9 +42,9 @@ public class FinancialOperationsSession implements FinancialOperationsRemote,
         transaction.setBeneficiary(beneficiary);
         transaction.setTs(operationTs);
         transaction.setAmount(amount);
-        transaction.setDescription("Перевод между счетами");
+        transaction.setDescription(description);
         
-        em.persist((Object)transaction);
+        em.persist(transaction);
         
         remitter.DecreaseBalance(amount);
         beneficiary.IncreaseBalance(amount);
