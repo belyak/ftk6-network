@@ -19,7 +19,7 @@
                     try {
                         PopulateDumpRemote ejbRef = RemoteInterfaceFactory.get(PopulateDumpRemote.class);
                         ejbRef.populate();
-                        
+
                         EntitiesListerRemote listerEjbRef = RemoteInterfaceFactory.get(EntitiesListerRemote.class);
                         List<Person> persons;
                         

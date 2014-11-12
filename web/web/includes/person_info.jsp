@@ -6,11 +6,13 @@
 <%@ page import="info.aservices.ftk6.dc.ReportsRemote" %>
 <%@ page import="javax.naming.InitialContext" %>
 <%@ page import="javax.naming.NamingException" %>
+<%@ page import="info.aservices.ftk6.dc.PersonInfo" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%! InitialContext ic; %>
         <%
             ReportsRemote ejbRef = null;
+            PersonInfo personInfo;
             Person person;
             Collection<Account> accounts;
             try {
@@ -18,8 +20,9 @@
                 ic  = new InitialContext();
                 ejbRef = (ReportsRemote) ic.lookup(ReportsRemote.class.getName());
                 int personId = Integer.parseInt(request.getParameter("id"));
-                person = ejbRef.getPerson(personId);
-                accounts = person.getAccountCollection();
+                personInfo = ejbRef.getPerson(personId);
+                person = personInfo.person;
+                accounts = personInfo.accounts;
             %>
 
             <div class="row">

@@ -43,7 +43,7 @@
 
         String lastName = request.getParameter("lastName");
         String firstName = request.getParameter("firstName");
-        String patromynicName = request.getParameter("patromynicName");
+        String patromynicName = request.getParameter("patronymicName");
         BigDecimal initialBalance;
         try {
             initialBalance = new BigDecimal(request.getParameter("initialBalance"));
@@ -59,7 +59,7 @@
 <div class="row">
     <div class="column">
         <span class="alert-success">
-            Person has been created, you can visit its page: <a href="person_info.jsp?id=<%=personId%>">person page</a>
+            Person has been created, you can visit its page: <a href="/person.jsp?id=<%=personId%>">person page</a>
         </span>
     </div>
 </div>
