@@ -139,8 +139,7 @@ public class EntitiesLister implements EntitiesListerRemote {
         mQB.addWhereClauseDisjunctiveConditions(expressions);
         
         String query = mQB.getQuery();
-        
-        Collection<Person> result = new ArrayList<>();
+
         Query createdQuery = em.createQuery(query);
         for (int i = 0; i < 3; i++) {
             if (!fieldValues[i].isEmpty()) {
