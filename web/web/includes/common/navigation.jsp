@@ -17,9 +17,9 @@
                         Actions <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="/create_person.jsp">Create person</a></li>
-                        <!--<li><a href="/accounts.jsp">Accounts</a></li>
-                        <li><a href="/transactions.jsp">Transactions</a></li>-->
+                        <li><a href="/create_person.jsp">Создать лицо</a></li>
+                        <li><a href="/recharge_account.jsp">Пополнить счет</a></li>
+                        <li><a href="/create_transaction.jsp">Совершить перевод</a></li>
                     </ul>
                 </li>
 

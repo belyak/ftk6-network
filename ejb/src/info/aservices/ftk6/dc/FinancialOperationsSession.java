@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateless()
-public class CommonActionsSession implements FinancialOperationsRemote,
+public class FinancialOperationsSession implements FinancialOperationsRemote,
         FinancialOperationsLocal {
     
     @PersistenceContext(unitName = "ESystem-ejbPU")
@@ -25,14 +25,12 @@ public class CommonActionsSession implements FinancialOperationsRemote,
         transaction.setAmount(amount);
         transaction.setDescription("Зачисление денег на счет.");
         
-        em.persist((Object)transaction);
+        em.persist(transaction);
         
         BigDecimal currentBalance = account.getBalance();
-        //noinspection ResultOfMethodCallIgnored
-        currentBalance.add(amount);
-        account.setBalance(amount);
-        
-        
+        account.setBalance(currentBalance.add(amount));
+
+        em.merge(account);
     }
 
     @Override
@@ -50,5 +48,8 @@ public class CommonActionsSession implements FinancialOperationsRemote,
         
         remitter.DecreaseBalance(amount);
         beneficiary.IncreaseBalance(amount);
+
+        em.merge(remitter);
+        em.merge(beneficiary);
     }
 }

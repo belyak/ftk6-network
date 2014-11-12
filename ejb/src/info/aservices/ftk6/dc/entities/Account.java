@@ -42,9 +42,9 @@ public class Account implements Serializable {
     @Column(name = "balance", nullable = false, precision = 18, scale = 2)
     private BigDecimal balance;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "beneficiary")
-    private Collection<AccountMovement> accountMovementsCollection;
+    private Collection<AccountMovement> beneficiaryAccountMovementsCollection;
     @OneToMany(mappedBy = "remitter")
-    private Collection<AccountMovement> accountMovementsCollection1;
+    private Collection<AccountMovement> remitterAccountMovementsCollection;
     @JoinColumn(name = "person", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Person person;
@@ -100,20 +100,20 @@ public class Account implements Serializable {
        this.balance = newBalance;
     }
 
-    public Collection<AccountMovement> getAccountMovementsCollection() {
-        return accountMovementsCollection;
+    public Collection<AccountMovement> getBeneficiaryAccountMovementsCollection() {
+        return beneficiaryAccountMovementsCollection;
     }
 
-    public void setAccountMovementsCollection(Collection<AccountMovement> accountMovementsCollection) {
-        this.accountMovementsCollection = accountMovementsCollection;
+    public void setBeneficiaryAccountMovementsCollection(Collection<AccountMovement> accountMovementsCollection) {
+        this.beneficiaryAccountMovementsCollection = accountMovementsCollection;
     }
 
-    public Collection<AccountMovement> getAccountMovementsCollection1() {
-        return accountMovementsCollection1;
+    public Collection<AccountMovement> getRemitterAccountMovementsCollection() {
+        return remitterAccountMovementsCollection;
     }
 
-    public void setAccountMovementsCollection1(Collection<AccountMovement> accountMovementsCollection1) {
-        this.accountMovementsCollection1 = accountMovementsCollection1;
+    public void setRemitterAccountMovementsCollection(Collection<AccountMovement> accountMovementsCollection) {
+        this.remitterAccountMovementsCollection = accountMovementsCollection;
     }
 
     public Person getPerson() {

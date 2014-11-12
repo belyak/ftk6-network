@@ -39,13 +39,18 @@ public class ReportsSession implements ReportsRemote {
     }
 
     @Override
+    public Account getAccount(Integer account_id) {
+        return (Account) em.createNamedQuery("Account.findById").setParameter("id", account_id).getSingleResult();
+    }
+
+    @Override
     public AccountInfo getAccountHistoryInfo(Integer account_id, Date from, Date till) {
         AccountInfo ai = getAccountHistoryCommonData(account_id);
-        
-        String query = "SELECT am FROM AccountMovement am " + 
-                       "WHERE am.ts.after(:date_from) AND am.ts.before(:date_till) " +
-                       "AND account.id = :account_id ORDER BY am.ts DESC";
-        
+
+        String query = "SELECT am FROM AccountMovement am " +
+                       "WHERE am.ts BETWEEN :date_from AND :date_till " +
+                       "AND (am.beneficiary.id = :account_id OR am.remitter.id = :account_id) ORDER BY am.ts DESC";
+
         TypedQuery<AccountMovement> intermediateResult;
         intermediateResult = em.createQuery(query, AccountMovement.class);
         intermediateResult = intermediateResult.setParameter("date_from", from);
@@ -58,22 +63,23 @@ public class ReportsSession implements ReportsRemote {
     @Override
     public AccountInfo getAccountHistoryInfo(Integer account_id, int lastOperationsCnt) {
         AccountInfo ai = getAccountHistoryCommonData(account_id);
-        
-        String query = "SELECT am FROM AccountMovement am " + 
-                       "WHERE am.remitter.id = :account_id " + 
+
+        String query = "SELECT am FROM AccountMovement am " +
+                       "WHERE am.remitter.id = :account_id " +
                        "OR am.beneficiary.id = :account_id ORDER BY am.ts DESC";
         TypedQuery<AccountMovement> intermediateResult;
         intermediateResult = em.createQuery(query, AccountMovement.class);
         intermediateResult = intermediateResult.setParameter("account_id", account_id);
-                
+
         ai.operationsHistory = intermediateResult.setMaxResults(lastOperationsCnt).getResultList();
         return ai;
     }
-    
+
     private AccountInfo getAccountHistoryCommonData(Integer account_id) {
         AccountInfo ai = new AccountInfo();
         ai.account = em.find(Account.class, account_id);
         ai.owner = ai.account.getPerson();
         return ai;
     }
+
 }
