@@ -1,6 +1,9 @@
 package info.aservices.ftk6.dc.webhelpers;
 
+import info.aservices.ftk6.dc.entities.Person;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -115,39 +118,36 @@ public class EntitiesLister implements EntitiesListerRemote {
         }
         return result;
     }
-
-    private void setLikeParameterIfValueIsNotEmpty(Query createdQuery, String param, String value) {
-        if (param.length() != 0) {
-            createdQuery.setParameter(param, value + "%");
-        }
-    }
     
     @Override
-    public <T1> List<T1> getSearchList(Class entityClass, String firstName, String lastName, String patronymicName) {
-        String tableName = entityClass.getName();
+    public Collection<Person> getPersonsFilteredList(String firstName, String lastName, String patronymicName) {
+        String tableName = Person.class.getName();
 
         
         MyQueryBuilder mQB = new MyQueryBuilder(tableName);
         
         List<Expression> expressions = new ArrayList<>();
-        expressions.add(new ILikeEqualityCondition("lastName"));
-        expressions.add(new ILikeEqualityCondition("firstName"));
-        expressions.add(new ILikeEqualityCondition("patronymicName"));
+        final String fieldNames[] = {"lastName", "firstName", "patronymicName"};
+        final String fieldValues[] = {lastName, firstName, patronymicName};
+
+        for (int i = 0; i < 3; i++) {
+            if (!fieldValues[i].isEmpty()) {
+                expressions.add(new ILikeEqualityCondition(fieldNames[i]));
+            }
+        }
+
         mQB.addWhereClauseDisjunctiveConditions(expressions);
         
         String query = mQB.getQuery();
         
-        List<T1> result = new ArrayList<>();
+        Collection<Person> result = new ArrayList<>();
         Query createdQuery = em.createQuery(query);
-        setLikeParameterIfValueIsNotEmpty(createdQuery, "lastName", lastName);
-        setLikeParameterIfValueIsNotEmpty(createdQuery, "firstName", lastName);
-        setLikeParameterIfValueIsNotEmpty(createdQuery, "patronymicName", lastName);
-        List preResult = createdQuery.getResultList();
-        
-        for(Object o: preResult) {
-            //noinspection unchecked
-            result.add((T1)o);
+        for (int i = 0; i < 3; i++) {
+            if (!fieldValues[i].isEmpty()) {
+                createdQuery.setParameter(fieldNames[i], fieldValues[i]);
+            }
         }
-        return result;
+
+        return new ArrayList<>(createdQuery.getResultList());
     }
 }

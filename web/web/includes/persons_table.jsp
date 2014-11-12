@@ -4,6 +4,7 @@
 <%@page import="info.aservices.ftk6.dc.entities.Person"%>
 <%@page import="java.util.List"%>
 <%@page import="info.aservices.ftk6.dc.PopulateDumpRemote"%>
+<%@ page import="java.util.Collection" %>
 <div class="row">
     <div class="col-xs-10">
         <div class="panel panel-default panel-primary">
@@ -18,7 +19,7 @@
                 <%  
                     try {
                         EntitiesListerRemote listerEjbRef = RemoteInterfaceFactory.get(EntitiesListerRemote.class);
-                        List<Person> persons;
+                        Collection<Person> persons;
 
                         boolean paginate = false;
                         int pageNumber = 0;
@@ -30,8 +31,8 @@
 
                             String lastName = request.getParameter("lastName");
                             String firstName = request.getParameter("firstName");
-                            String patromynicName = request.getParameter("patromynicName");
-                            persons = listerEjbRef.getSearchList(Person.class, firstName, lastName, patromynicName);
+                            String patromynicName = request.getParameter("patronymicName");
+                            persons = listerEjbRef.getPersonsFilteredList(firstName, lastName, patromynicName);
                         }
                         else {
                             try {
@@ -39,7 +40,7 @@
                             } catch (NumberFormatException e) {
                                 pageNumber = 1;
                             }
-                            persons = listerEjbRef.<Person>getList(Person.class, pageNumber, itemsPerPage);
+                            persons = listerEjbRef.getList(Person.class, pageNumber, itemsPerPage);
                             totalPages = listerEjbRef.<Person>getPagesCount(Person.class, itemsPerPage);
                             paginate = true;
                         }

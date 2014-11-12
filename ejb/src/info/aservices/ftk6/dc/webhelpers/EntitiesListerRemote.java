@@ -5,6 +5,9 @@
  */
 package info.aservices.ftk6.dc.webhelpers;
 
+import info.aservices.ftk6.dc.entities.Person;
+
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -17,5 +20,5 @@ public interface EntitiesListerRemote {
     <T1> List<T1> getList(Class entityClass);
     <T1> int getPagesCount(Class entityClass, int itemsPerPage);
     <T1> List<T1> getList(Class entityClass, int page, int itemsPerPage);
-    <T1> List<T1> getSearchList(Class entityClass, String firstName, String lastName, String patronymicName);
+    Collection<Person> getPersonsFilteredList(String firstName, String lastName, String patronymicName);
 }
