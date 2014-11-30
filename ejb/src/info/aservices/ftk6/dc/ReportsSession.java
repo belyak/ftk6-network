@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package info.aservices.ftk6.dc;
 
 import info.aservices.ftk6.dc.entities.AccountMovement;
@@ -14,6 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import info.aservices.ftk6.dc.entities.Account;
 import info.aservices.ftk6.dc.entities.Person;
+import info.aservices.ftk6.dc.transferobjects.AccountTO;
+import info.aservices.ftk6.dc.transferobjects.PersonTO;
+
 import java.util.Date;
 import javax.persistence.TypedQuery;
 
@@ -30,8 +28,8 @@ public class ReportsSession implements ReportsRemote {
     }
 
     @Override
-    public PersonInfo getPerson(Integer person_id) {
-        PersonInfo pi =  new PersonInfo();
+    public PersonTO getPerson(Integer person_id) {
+        PersonTO pi =  new PersonTO();
         Person person = em.find(Person.class, person_id);
         pi.person = person;
         pi.accounts = new ArrayList<>(person.getAccountCollection());
@@ -44,8 +42,8 @@ public class ReportsSession implements ReportsRemote {
     }
 
     @Override
-    public AccountInfo getAccountHistoryInfo(Integer account_id, Date from, Date till) {
-        AccountInfo ai = getAccountHistoryCommonData(account_id);
+    public AccountTO getAccountHistoryInfo(Integer account_id, Date from, Date till) {
+        AccountTO ai = getAccountHistoryCommonData(account_id);
 
         String query = "SELECT am FROM AccountMovement am " +
                        "WHERE am.ts BETWEEN :date_from AND :date_till " +
@@ -61,8 +59,8 @@ public class ReportsSession implements ReportsRemote {
     }
 
     @Override
-    public AccountInfo getAccountHistoryInfo(Integer account_id, int lastOperationsCnt) {
-        AccountInfo ai = getAccountHistoryCommonData(account_id);
+    public AccountTO getAccountHistoryInfo(Integer account_id, int lastOperationsCnt) {
+        AccountTO ai = getAccountHistoryCommonData(account_id);
 
         String query = "SELECT am FROM AccountMovement am " +
                        "WHERE am.remitter.id = :account_id " +
@@ -75,8 +73,8 @@ public class ReportsSession implements ReportsRemote {
         return ai;
     }
 
-    private AccountInfo getAccountHistoryCommonData(Integer account_id) {
-        AccountInfo ai = new AccountInfo();
+    private AccountTO getAccountHistoryCommonData(Integer account_id) {
+        AccountTO ai = new AccountTO();
         ai.account = em.find(Account.class, account_id);
         ai.owner = ai.account.getPerson();
         return ai;

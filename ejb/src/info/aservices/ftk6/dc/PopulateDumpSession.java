@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package info.aservices.ftk6.dc;
 
 import info.aservices.ftk6.dc.entities.Account;
 import info.aservices.ftk6.dc.entities.Person;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -123,9 +116,9 @@ public class PopulateDumpSession implements PopulateDumpRemote {
         return a;
     }
 
-    private String getRandomName() { return getRandomListValue(names); };
-    private String getRandomPatronymicName() { return getRandomListValue(patronymicNames); };
-    private String getRandomLastName() { return getRandomListValue(lastNames); };
+    private String getRandomName() { return getRandomListValue(names); }
+    private String getRandomPatronymicName() { return getRandomListValue(patronymicNames); }
+    private String getRandomLastName() { return getRandomListValue(lastNames); }
 
     private String[] loadNames() {
         return new String[]{"Абрам", "Аваз", "Аввакум", "Август", "Августин", "Авдей", "Авенир", "Аверьян", "Авксентий",
@@ -161,6 +154,6 @@ public class PopulateDumpSession implements PopulateDumpRemote {
 
     @Override
     public List<Person> dumpPersons() {
-        return em.createNamedQuery("Person.findAll").getResultList();
+        return em.createQuery("SELECT p FROM Person p", Person.class).getResultList();
     }
 }

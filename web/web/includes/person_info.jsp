@@ -1,4 +1,4 @@
-<%@ page import="info.aservices.ftk6.dc.AccountInfo" %>
+<%@ page import="info.aservices.ftk6.dc.transferobjects.AccountTO" %>
 <%@ page import="info.aservices.ftk6.dc.entities.AccountMovement" %>
 <%@ page import="info.aservices.ftk6.dc.entities.Account" %>
 <%@ page import="java.util.Collection" %>
@@ -6,13 +6,13 @@
 <%@ page import="info.aservices.ftk6.dc.ReportsRemote" %>
 <%@ page import="javax.naming.InitialContext" %>
 <%@ page import="javax.naming.NamingException" %>
-<%@ page import="info.aservices.ftk6.dc.PersonInfo" %>
+<%@ page import="info.aservices.ftk6.dc.transferobjects.PersonTO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%! InitialContext ic; %>
         <%
-            ReportsRemote ejbRef = null;
-            PersonInfo personInfo;
+            ReportsRemote ejbRef;
+            PersonTO personTO;
             Person person;
             Collection<Account> accounts;
             try {
@@ -20,9 +20,9 @@
                 ic  = new InitialContext();
                 ejbRef = (ReportsRemote) ic.lookup(ReportsRemote.class.getName());
                 int personId = Integer.parseInt(request.getParameter("id"));
-                personInfo = ejbRef.getPerson(personId);
-                person = personInfo.person;
-                accounts = personInfo.accounts;
+                personTO = ejbRef.getPerson(personId);
+                person = personTO.person;
+                accounts = personTO.accounts;
             %>
 
             <div class="row">
@@ -56,7 +56,7 @@
                                 </thead>
                                 <tbody>
                                 <%
-                                    AccountInfo ai = ejbRef.getAccountHistoryInfo(account.getId(), 10);
+                                    AccountTO ai = ejbRef.getAccountHistoryInfo(account.getId(), 10);
                                     for (AccountMovement am: ai.operationsHistory) {
                                 %>
                                     <tr>
