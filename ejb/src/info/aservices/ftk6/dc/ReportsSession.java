@@ -43,7 +43,7 @@ public class ReportsSession implements ReportsRemote {
 
     @Override
     public AccountTO getAccountHistoryInfo(Integer account_id, Date from, Date till) {
-        AccountTO ai = getAccountHistoryCommonData(account_id);
+        AccountTO ato = getAccountHistoryCommonData(account_id);
 
         String query = "SELECT am FROM AccountMovement am " +
                        "WHERE am.ts BETWEEN :date_from AND :date_till " +
@@ -54,13 +54,13 @@ public class ReportsSession implements ReportsRemote {
         intermediateResult = intermediateResult.setParameter("date_from", from);
         intermediateResult = intermediateResult.setParameter("date_till", till);
         intermediateResult = intermediateResult.setParameter("account_id", account_id);
-        ai.operationsHistory = intermediateResult.getResultList();
-        return ai;
+        ato.operationsHistory = intermediateResult.getResultList();
+        return ato;
     }
 
     @Override
     public AccountTO getAccountHistoryInfo(Integer account_id, int lastOperationsCnt) {
-        AccountTO ai = getAccountHistoryCommonData(account_id);
+        AccountTO ato = getAccountHistoryCommonData(account_id);
 
         String query = "SELECT am FROM AccountMovement am " +
                        "WHERE am.remitter.id = :account_id " +
@@ -69,15 +69,15 @@ public class ReportsSession implements ReportsRemote {
         intermediateResult = em.createQuery(query, AccountMovement.class);
         intermediateResult = intermediateResult.setParameter("account_id", account_id);
 
-        ai.operationsHistory = intermediateResult.setMaxResults(lastOperationsCnt).getResultList();
-        return ai;
+        ato.operationsHistory = intermediateResult.setMaxResults(lastOperationsCnt).getResultList();
+        return ato;
     }
 
     private AccountTO getAccountHistoryCommonData(Integer account_id) {
-        AccountTO ai = new AccountTO();
-        ai.account = em.find(Account.class, account_id);
-        ai.owner = ai.account.getPerson();
-        return ai;
+        AccountTO ato = new AccountTO();
+        ato.account = em.find(Account.class, account_id);
+        ato.owner = ato.account.getPerson();
+        return ato;
     }
 
 }
