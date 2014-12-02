@@ -3,6 +3,7 @@ package info.aservices.ftk6.dc;
 import info.aservices.ftk6.dc.entities.Account;
 import info.aservices.ftk6.dc.entities.Person;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,6 +14,9 @@ public class AdministrativeOperationsSession implements AdministrativeOperations
 
     @PersistenceContext(unitName = "ESystem-ejbPU")
     private EntityManager em;
+
+    @EJB
+    private FinancialOperationsLocal fol;
 
     @Override
     public Integer createPerson(String firstName, String patronymicName,
@@ -39,9 +43,14 @@ public class AdministrativeOperationsSession implements AdministrativeOperations
     public Integer createAccount(Person person, BigDecimal initialBalance) {
         Account account = new Account();
         account.setPerson(person);
-        account.setBalance(initialBalance);
+        account.setBalance(BigDecimal.ZERO);
         person.getAccountCollection().add(account);
         em.persist(account);
+
+        if (!initialBalance.equals(BigDecimal.ZERO)) {
+            fol.Recharge(account, initialBalance);
+        }
+
         return account.getId();
     }
 

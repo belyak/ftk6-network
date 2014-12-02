@@ -3,6 +3,6 @@
 <layout:extends name="base">
     <layout:put block="title" type="REPLACE">E-System: accounts list</layout:put>
     <layout:put block="content" type="REPLACE">
-        <jsp:include page="includes/accounts_table.jsp" flush="true"></jsp:include>
+        <jsp:include page="includes/accounts_table.jsp" flush="true" />
     </layout:put>
 </layout:extends>

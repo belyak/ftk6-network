@@ -21,7 +21,6 @@
                             %><tr>
                                 <td>#<%=a.getId()%></td>
                                 <td><%=a.getBalance()%>
-                                <td><a href="/account.jsp?id=<%=a.getId()%>">view account details</a></td>
                             </tr><%
                         }
                     } catch (Exception e) {

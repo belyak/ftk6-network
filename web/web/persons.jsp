@@ -3,7 +3,7 @@
 <layout:extends name="base">
     <layout:put block="title" type="REPLACE">E-System: persons list</layout:put>
     <layout:put block="content" type="REPLACE">
-        <jsp:include page="includes/search_form.jsp" flush="true"></jsp:include>
-        <jsp:include page="includes/persons_table.jsp" flush="true"></jsp:include>
+        <jsp:include page="includes/search_form.jsp" flush="true"/>
+        <jsp:include page="includes/persons_table.jsp" flush="true"/>
     </layout:put>
 </layout:extends>

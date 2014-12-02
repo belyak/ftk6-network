@@ -31,7 +31,7 @@
                         <!-- Default panel contents -->
                         <div class="panel-heading">
                             <h2 class="panel-title">
-                                Счета в системе
+                                Данные физ.лица
                             </h2>
                         </div>
                         <div class="panel-body">

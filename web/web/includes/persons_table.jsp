@@ -10,7 +10,7 @@
         <div class="panel panel-default panel-primary">
             <!-- Default panel contents -->
             <div class="panel-heading">
-                <h3 class="panel-title">Persons list</h3>
+                <h3 class="panel-title">Список физ.лиц</h3>
             </div>
             <div class="panel-body">
             <p>Список фамилий и инициалов физических лиц.</p>

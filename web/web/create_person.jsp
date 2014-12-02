@@ -6,7 +6,7 @@
 <%@ taglib prefix="layout" uri="http://kwonnam.pe.kr/jsp/template-inheritance" %>
 
 <layout:extends name="base">
-  <layout:put block="title" type="REPLACE">E-System: create person</layout:put>
+  <layout:put block="title" type="REPLACE">E-System: создать новое физ.лицо</layout:put>
   <layout:put block="content" type="REPLACE">
     <jsp:include page="includes/create_person_form.jsp" flush="true" />
   </layout:put>

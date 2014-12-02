@@ -3,7 +3,7 @@
 <%@page import="info.aservices.ftk6.dc.webhelpers.EntitiesListerRemote"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-7">
         <div class="panel panel-default panel-primary">
             <!-- Default panel contents -->
             <div class="panel-heading">
@@ -35,7 +35,6 @@
                                 <td><%=am.getId()%></td>
                                 <td><%=am.getAmount()%></td>
                                 <td><%=am.getBeneficiary().getPerson().getFullName()%></td>
-                                <td><a href="/person.jsp?id=<%=am.getId()%>">view transactions details</a></td>
                             </tr>
                         <%
                         }

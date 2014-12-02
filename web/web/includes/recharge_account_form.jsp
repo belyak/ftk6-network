@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.math.BigDecimal" %>
-<%@ page import="info.aservices.ftk6.dc.AdministrativeOperationsRemote" %>
 <%@ page import="javax.naming.NamingException" %>
 <%@ page import="info.aservices.ftk6.dc.webhelpers.RemoteInterfaceFactory" %>
 <%@ page import="info.aservices.ftk6.dc.FinancialOperationsRemote" %>
@@ -10,22 +9,22 @@
   <div class="col-xs-10">
     <div class="panel panel-primary">
       <div class="panel-heading" data-toggle="collapse" data-target="#createPanelBody">
-        <h3 class="panel-title">Create new person:</h3>
+        <h3 class="panel-title">Пополнить лицевой счет:</h3>
       </div>
       <div class="panel-body collapse in" id="createPanelBody" aria-expanded="true">
 
         <form role="form">
           <input type="hidden" name="doRechargeAccount" value="true">
           <div class="form-group">
-            <label for="ln">Account number</label>
+            <label for="ln">Номер лицевого счета:</label>
             <input type="text" class="form-control" id="ln" name="accountNumber" placeholder="#">
           </div>
 
           <div class="form-group">
-            <label for="ib">Value to recharge:</label>
+            <label for="ib">Сумма:</label>
             <input type="text" class="form-control" id="ib" name="valueToRecharge" placeholder="0">
           </div>
-          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="submit" class="btn btn-primary">пополнить</button>
         </form>
 
       </div>
@@ -56,7 +55,7 @@
 <div class="row">
   <div class="column">
         <span class="alert-success">
-            Account has been recharged, you can visit its page: <a href="/account.jsp?id=<%=accountId%>">account page</a>
+            Account has been recharged.
         </span>
   </div>
 </div>
