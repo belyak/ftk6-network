@@ -45,12 +45,9 @@ public class ReportsSession implements ReportsRemote {
     public AccountTO getAccountHistoryInfo(Integer account_id, Date from, Date till) {
         AccountTO ato = getAccountHistoryCommonData(account_id);
 
-        String query = "SELECT am FROM AccountMovement am " +
-                       "WHERE am.ts BETWEEN :date_from AND :date_till " +
-                       "AND (am.beneficiary.id = :account_id OR am.remitter.id = :account_id) ORDER BY am.ts DESC";
-
         TypedQuery<AccountMovement> intermediateResult;
-        intermediateResult = em.createQuery(query, AccountMovement.class);
+        intermediateResult = em.createNamedQuery("AccountMovement.findByRemitterOrBeneficiaryBetweenDates",
+                AccountMovement.class);
         intermediateResult = intermediateResult.setParameter("date_from", from);
         intermediateResult = intermediateResult.setParameter("date_till", till);
         intermediateResult = intermediateResult.setParameter("account_id", account_id);
@@ -62,11 +59,8 @@ public class ReportsSession implements ReportsRemote {
     public AccountTO getAccountHistoryInfo(Integer account_id, int lastOperationsCnt) {
         AccountTO ato = getAccountHistoryCommonData(account_id);
 
-        String query = "SELECT am FROM AccountMovement am " +
-                       "WHERE am.remitter.id = :account_id " +
-                       "OR am.beneficiary.id = :account_id ORDER BY am.ts DESC";
         TypedQuery<AccountMovement> intermediateResult;
-        intermediateResult = em.createQuery(query, AccountMovement.class);
+        intermediateResult = em.createNamedQuery("AccountMovement.findByRemitterOrBeneficiary", AccountMovement.class);
         intermediateResult = intermediateResult.setParameter("account_id", account_id);
 
         ato.operationsHistory = intermediateResult.setMaxResults(lastOperationsCnt).getResultList();

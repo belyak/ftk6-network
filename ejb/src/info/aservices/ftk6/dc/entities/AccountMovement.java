@@ -26,10 +26,21 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "AccountMovement.findAll", query = "SELECT a FROM AccountMovement a"),
     @NamedQuery(name = "AccountMovement.findById", query = "SELECT a FROM AccountMovement a WHERE a.id = :id"),
-    @NamedQuery(name = "AccountMovement.findByTs", query = "SELECT a FROM AccountMovement a WHERE a.ts = :ts"),
-    @NamedQuery(name = "AccountMovement.findByAmount", query = "SELECT a FROM AccountMovement a WHERE a.amount = :amount"),
-    @NamedQuery(name = "AccountMovement.findByDescription", query = "SELECT a FROM AccountMovement a WHERE a.description = :description"),
-    @NamedQuery(name = "AccountMovement.findByIsRecharge", query = "SELECT a FROM AccountMovement a WHERE a.isRecharge = :isRecharge")})
+    @NamedQuery(
+            name = "AccountMovement.findByRemitterOrBeneficiary",
+            query = "SELECT am FROM AccountMovement am " +
+                    "WHERE " +
+                    "am.remitter.id = :account_id OR am.beneficiary.id = :account_id " +
+                    "ORDER BY am.ts DESC"),
+    @NamedQuery(
+            name = "AccountMovement.findByRemitterOrBeneficiaryBetweenDates",
+            query = "SELECT am FROM AccountMovement am " +
+                    "WHERE " +
+                    "am.ts BETWEEN :date_from AND :date_till " +
+                    "AND " +
+                    "(am.beneficiary.id = :account_id OR am.remitter.id = :account_id) " +
+                    "ORDER BY am.ts DESC")
+})
 public class AccountMovement implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

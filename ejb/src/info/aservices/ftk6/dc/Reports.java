@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface Reports {
-    List<AccountMovement> getAccountMovements(Account acccount);
+    List<AccountMovement> getAccountMovements(Account account);
 
     PersonTO getPerson(Integer person_id);
 
