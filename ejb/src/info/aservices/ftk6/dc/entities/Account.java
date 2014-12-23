@@ -100,13 +100,7 @@ public class Account implements Serializable {
      */
     private void changeBalance(BigDecimal delta) {
        BigDecimal newBalance;
-       if (delta.signum() == 1) {
-           newBalance = this.balance.add(delta);
-       } else if (delta.signum() == -1) {
-           newBalance = this.balance.subtract(delta);
-       } else {
-           newBalance = this.balance;
-       }
+       newBalance = this.balance.add(delta);
        this.balance = newBalance;
     }
 
@@ -155,5 +149,4 @@ public class Account implements Serializable {
     public String toString() {
         return "info.aservices.ftk6.dc.Account[ id=" + id + " ]";
     }
-    
 }
