@@ -19,14 +19,6 @@ public class AdministrativeOperationsSession
     @EJB
     private FinancialOperationsLocal fol;
 
-    /**
-     * Создание физического лица
-     *
-     * @param firstName имя
-     * @param patronymicName фамилия
-     * @param lastName отчество
-     * @return идентификатор физического лица
-     */
     @Override
     public Integer createPerson(String firstName, String patronymicName,
                                 String lastName) {
@@ -39,15 +31,6 @@ public class AdministrativeOperationsSession
         return p.getId();
     }
 
-    /**
-     * Создание физического лица и счета с начальным балансом
-     *
-     * @param firstName имя
-     * @param patronymicName фамилия
-     * @param lastName отчество
-     * @param initialBalance начальный баланс
-     * @return идетификатор физического лица
-     */
     @Override
     public Integer createPersonAndAccount(String firstName, String patronymicName, String lastName, BigDecimal initialBalance) {
         Person p = new Person(firstName, patronymicName, lastName);
@@ -57,12 +40,6 @@ public class AdministrativeOperationsSession
         return p.getId();
     }
 
-    /**
-     * Создание счета с начальным балансом
-     * @param person физ.лицо-владелец счета
-     * @param initialBalance начальный баланс
-     * @return идентификатор счета
-     */
     @Override
     public Integer createAccount(Person person, BigDecimal initialBalance) {
         Account account = new Account();
@@ -78,12 +55,6 @@ public class AdministrativeOperationsSession
         return account.getId();
     }
 
-    /**
-     * Создание счета
-     *
-     * @param person физ.лицо-владелец счета
-     * @return идентификатор счета
-     */
     @Override
     public Integer createAccount(Person person) {
         return createAccount(person, BigDecimal.ZERO);
