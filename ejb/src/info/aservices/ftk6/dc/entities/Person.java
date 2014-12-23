@@ -15,10 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
-/**
- *
- * @author andy
- */
 @Entity
 @Table(name = "person")
 @NamedQueries({
@@ -100,7 +96,15 @@ public class Person implements Serializable {
     public String getFullName() {
         return this.getFullName(false);
     }
-    
+
+    /**
+     * Получение полного имени. Если не указано сокращать имя до инициалов, возвращает строку "Фамилия Имя Отчество",
+     * если указано - строку "Фамилия И.О.", причем если имя или отчество отсутствует, то оно не войдет ( Петров Иван
+     * станет строкой "Петров И.", Сидоров Михайлович строкой "Сидоров М."
+     *
+     * @param withInitials сокращать имя и отчество до инициалов.
+     * @return имя одной строкой
+     */
     public String getFullName(boolean withInitials) {
         if (!withInitials) {
             return lastName + ' ' + firstName + ' ' + patronymicName;
