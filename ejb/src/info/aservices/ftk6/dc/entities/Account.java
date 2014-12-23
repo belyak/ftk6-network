@@ -17,16 +17,19 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-/**
- *
- * @author andy
- */
+
 @Entity
 @Table(name = "account")
 @NamedQueries({
-    @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
-    @NamedQuery(name = "Account.findById", query = "SELECT a FROM Account a WHERE a.id = :id"),
-    @NamedQuery(name = "Account.findByBalance", query = "SELECT a FROM Account a WHERE a.balance = :balance")})
+    @NamedQuery(
+            name = "Account.findAll",
+            query = "SELECT a FROM Account a"),
+    @NamedQuery(
+            name = "Account.findById",
+            query = "SELECT a FROM Account a WHERE a.id = :id"),
+    @NamedQuery(
+            name = "Account.findByBalance",
+            query = "SELECT a FROM Account a WHERE a.balance = :balance")})
 public class Account implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -71,17 +74,29 @@ public class Account implements Serializable {
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
-    
+
+    /**
+     * Увеличение баланса на указанную величину.
+     *
+     * @param amount величина изменения
+     */
     public void IncreaseBalance(BigDecimal amount) {
         changeBalance(amount);
     }
-    
-    public void DecreaseBalance(BigDecimal amount) {
-        changeBalance(amount);
-    }
-    
+
     /**
-     * 
+     * Уменьшение баланса на указанную величину.
+     *
+     * @param amount величина изменения
+     */
+    public void DecreaseBalance(BigDecimal amount) {
+        changeBalance(amount.multiply(new BigDecimal(-1)));
+    }
+
+    /**
+     * Изменение баланса на указанную величину
+     *
+     * @param delta величина изменения
      */
     private void changeBalance(BigDecimal delta) {
        BigDecimal newBalance;
