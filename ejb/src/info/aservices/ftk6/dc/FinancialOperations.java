@@ -8,8 +8,24 @@ import java.math.BigDecimal;
  */
 public interface FinancialOperations {
 
+    /**
+     * Пополнение счета
+     *
+     * @param account пополняемы счета
+     * @param amount сумма
+     */
     void Recharge(Account account, BigDecimal amount);
 
-    Integer Transfer(Account remitter, Account beneficiary, BigDecimal amount, String description);
+    /**
+     * Перевод между счетами
+     *
+     * @param remitter счет отправителя
+     * @param beneficiary счет получателя
+     * @param amount сумма
+     * @param description назначение перевода
+     * @return идентификатор перевода
+     */
+    Integer Transfer(Account remitter, Account beneficiary,
+                     BigDecimal amount, String description);
     
 }
