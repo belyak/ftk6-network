@@ -17,10 +17,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author andy
- */
 @Entity
 @Table(name = "account_movements")
 @NamedQueries({
@@ -51,7 +47,6 @@ public class AccountMovement implements Serializable {
     @Column(name = "ts", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date ts;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "amount", nullable = false, precision = 18, scale = 2)
     private BigDecimal amount;
