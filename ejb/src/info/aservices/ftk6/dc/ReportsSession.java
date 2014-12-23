@@ -24,7 +24,7 @@ public class ReportsSession implements ReportsRemote {
     
     @Override
     public List<AccountMovement> getAccountMovements(Account account) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
