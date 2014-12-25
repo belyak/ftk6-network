@@ -29,7 +29,7 @@
                             %>
                         <table class="table table-striped">
                             <%
-                        for (AccountMovement am: listerEjbRef.<AccountMovement>getList(AccountMovement.class, pageNumber, itemsPerPage)) {
+                        for (AccountMovement am: listerEjbRef.<>getList(AccountMovement.class, pageNumber, itemsPerPage)) {
                             %>
                             <tr>
                                 <td><%=am.getId()%></td>

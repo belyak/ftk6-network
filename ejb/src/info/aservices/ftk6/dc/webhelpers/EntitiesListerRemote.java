@@ -11,10 +11,6 @@ import java.util.Collection;
 import java.util.List;
 import javax.ejb.Remote;
 
-/**
- *
- * @author andy
- */
 @Remote
 public interface EntitiesListerRemote {
     <T1> List<T1> getList(Class entityClass);

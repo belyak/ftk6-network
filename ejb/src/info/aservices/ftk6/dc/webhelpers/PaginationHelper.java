@@ -21,6 +21,7 @@ public class PaginationHelper {
         Collection<PaginationEntry> result = new ArrayList<>();
         int firstPage, lastPage;
 
+        //fixme: избавиться от магических чисел
         if (totalPages > MAX_PAGES) {
             firstPage = currentPage - 7;
             if (firstPage < 1) {

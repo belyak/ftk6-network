@@ -8,12 +8,8 @@ package info.aservices.ftk6.dc.webhelpers;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-/**
- *
- * @author andy
- */
 public class RemoteInterfaceFactory {
-    public static<Interface> Interface get(Class interfaceClass) throws NamingException {
+    public static <Interface> Interface get(Class interfaceClass) throws NamingException {
         String remoteName = interfaceClass.getCanonicalName();
         return InitialContext.doLookup(remoteName);
     }

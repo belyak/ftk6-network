@@ -11,4 +11,4 @@
 <h1>There was an error</h1>
 <p style="color: red">${pageContext.errorData.throwable.message}</p>
 <p><a href="WEB-INF/layouts/base.jsp">Return</a></p>
-</bod
+</body>
